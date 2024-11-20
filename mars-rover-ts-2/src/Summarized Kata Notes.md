@@ -23,6 +23,7 @@
 - Highlighting passing data between components (Such as passing position to grid)
 - How did we solve the wrapped in act warnings?
 - Rendering the grid may not be in the way you think of it - without any input square 0,0 would be at the top left instead of bottom left as though on a graph.
+- Prepare back-end code beforehand
 
 ## Actions to take
 
