@@ -12,16 +12,21 @@ function MarsGrid() {
         }
     }
 
-    function buildRow(yCoord: number) : ReactElement[] {
+    function buildRow(yCoord: number): ReactElement[] {
         let row = [];
         for (let xCoord = 0; xCoord < xLimit; xCoord++) {
-            row.push(<span
-                aria-label={`square at x${xCoord} y${yCoord}`}
-                key={`${xCoord}-${yCoord}`}
-                className="border-2 p-1 size-12">{(xCoord == 0 && yCoord == 0) && "^"}</span>
-            );
+            row.push(buildSquare(xCoord, yCoord));
         }
         return row;
+    }
+
+    function buildSquare(xCoord: number, yCoord: number) {
+        return <span
+            aria-label={`square at x${xCoord} y${yCoord}`}
+            key={`${xCoord}-${yCoord}`}
+            className="border-2 p-1 size-12">
+            {(xCoord == 0 && yCoord == 0) && "^"}
+        </span>
     }
 
     buildGrid();
