@@ -11,25 +11,25 @@ describe("MarsGrid should", () => {
     it.each(
         [[0, 0], [0, 1], [2, 0], [9, 9]]
     )
-    ('Render square inside grid at coordinates %s,%s', (xCoord: number, yCoord: number) => {
-        render(<MarsGrid />);
+        ('Render square inside grid at coordinates %s,%s', (xCoord: number, yCoord: number) => {
+            render(<MarsGrid />);
 
-        const grid = screen.getByLabelText("Mars rover grid")
-        expect(within(grid).getByLabelText(`square at x${xCoord} y${yCoord}`)).toBeVisible();
-    });
+            const grid = screen.getByLabelText("Mars rover grid")
+            expect(within(grid).getByLabelText(`square at x${xCoord} y${yCoord}`)).toBeVisible();
+        });
 
     it.each(
         [[0, 1], [2, 0], [9, 9]]
     )
-    ('Render empty square inside grid at coordinates %s,%s', (xCoord: number, yCoord: number) => {
-        render(<MarsGrid />);
+        ('Render empty square inside grid at coordinates %s,%s', (xCoord: number, yCoord: number) => {
+            render(<MarsGrid />);
 
-        const grid = screen.getByLabelText("Mars rover grid")
-        expect(within(grid).getByLabelText(`square at x${xCoord} y${yCoord}`)).toBeEmptyDOMElement();
-    });
+            const grid = screen.getByLabelText("Mars rover grid")
+            expect(within(grid).getByLabelText(`square at x${xCoord} y${yCoord}`)).toBeEmptyDOMElement();
+        });
 
     it("Render the Mars Rover at coordinates 0, 0", () => {
-       render(<MarsGrid />);
+        render(<MarsGrid />);
 
         const grid = screen.getByLabelText("Mars rover grid")
         const expectedRoverSquare = within(grid).getByLabelText("square at x0 y0");
@@ -42,8 +42,6 @@ describe("MarsGrid should", () => {
 
         const ninetiethItem = screen.getAllByLabelText(/^square at/i)[90];
 
-        expect(ninetiethItem).toHaveAttribute('aria-label','square at x0 y0');
+        expect(ninetiethItem).toHaveAttribute('aria-label', 'square at x0 y0');
     });
-
-    // Do we want to test grid layout CSS?
 });

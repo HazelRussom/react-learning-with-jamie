@@ -1,10 +1,13 @@
-import {render, screen, waitFor, within} from "@testing-library/react";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import App from "./App.tsx";
 import userEvent from "@testing-library/user-event";
 
 describe("mars rover feature", () => {
-  it("starts at home on the grid", async() => {
+  it("starts at home on the grid", async () => {
     render(<App />);
+
+    const rowLength = 10;
+    const expectedGridSize = 100;
 
     const grid = screen.getByLabelText("Mars rover grid");
 
@@ -12,7 +15,14 @@ describe("mars rover feature", () => {
     expect(lastSquare).toBeVisible();
 
     const squares = screen.getAllByLabelText(/^square at/)
-    expect(squares).toHaveLength(100);
+    expect(squares).toHaveLength(expectedGridSize);
+
+    const ninetiethItem = squares[expectedGridSize - rowLength];
+    expect(ninetiethItem).toHaveAttribute('aria-label', 'square at x0 y0');
+
+
+    expect(squares[0]).toHaveAttribute('aria-label', 'square at x0 y9');
+    expect(squares[rowLength]).toHaveAttribute('aria-label', 'square at x0 y8');
 
     const expectedRoverSquare = within(grid).getByLabelText("square at x0 y0");
     expect(expectedRoverSquare).toHaveTextContent("^");
