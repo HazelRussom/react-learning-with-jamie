@@ -22,27 +22,25 @@ function App() {
 
   return (
     <div>
-        <div>
-            <MarsGrid />
-        </div>
+      <div>
+        <MarsGrid />
+      </div>
       <div>
         <label htmlFor="command" className="pr-2 font-semibold">
           Command:
         </label>
         <input id="command" disabled value={command} />
       </div>
-      <div>
+      <div className="pb-2 space-x-2">
         <button className="btn flex-1" onClick={turnLeft}>
           Left
         </button>
-      </div>
-      <div>
         <button className="btn flex-1" onClick={turnRight}>
           Right
         </button>
       </div>
       <div>
-        <button className="btn w-full" onClick={executeCommand}>
+        <button className="btn flex-1" onClick={executeCommand}>
           Execute
         </button>
       </div>
