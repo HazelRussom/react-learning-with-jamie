@@ -1,4 +1,9 @@
-import {MarsRoverController} from "./MarsRoverController.ts";
+import { MarsRoverController } from "./MarsRoverController.ts";
+import { Coordinate } from "./Coordinate.ts";
+
+import { vi } from "vitest";
+
+vi.mock("./Coordinate");
 
 describe("MarsRoverController", () => {
     it('should handle unrecognised command', () => {
@@ -20,9 +25,9 @@ describe("MarsRoverController", () => {
         (command, expectedDirection) => {
             let controller = new MarsRoverController();
 
-            let direction = controller.execute(command);
+            let pose = controller.execute(command);
 
-            expect(direction.getDirection()).toBe(expectedDirection);
+            expect(pose.getDirection()).toBe(expectedDirection);
         }
     );
 
@@ -39,9 +44,9 @@ describe("MarsRoverController", () => {
         (command, expectedDirection) => {
             let controller = new MarsRoverController();
 
-            let direction = controller.execute(command);
+            let pose = controller.execute(command);
 
-            expect(direction.getDirection()).toBe(expectedDirection);
+            expect(pose.getDirection()).toBe(expectedDirection);
         }
     );
     
@@ -53,20 +58,57 @@ describe("MarsRoverController", () => {
         (command, expectedDirection) => {
             let controller = new MarsRoverController();
 
-            let direction = controller.execute(command);
+            let pose = controller.execute(command);
 
-            expect(direction.getDirection()).toBe(expectedDirection);
+            expect(pose.getDirection()).toBe(expectedDirection);
         }
     );
+
+    
+    it("when command is M, should not throw an error", () => {
+            let controller = new MarsRoverController();
+
+            expect(() => controller.execute("M")).not.toThrow();
+        }
+    );
+
+    
+    it("when command is M, should tell coordinate to move", () => {
+            let moveFunction = vi.fn();
+        
+            Coordinate.prototype.move = moveFunction;
+            let controller = new MarsRoverController();
+        
+            controller.execute("M");
+                
+            expect(moveFunction).toHaveBeenCalledTimes(1);
+        }
+    );
+    
+
+    // it.each([
+    //     ["M", 0, 1],
+    // ])(
+    //     "when command is %s, should move to %s, %s",
+    //     (command, expectedX, expectedY) => {
+    //         let controller = new MarsRoverController();
+
+    //         let pose = controller.execute(command);
+
+    //         let coordinate = pose.getCoordinate();
+    //         expect(coordinate.x).toBe(expectedX);
+    //         expect(coordinate.y).toBe(expectedY);
+    //     }
+    // );
     
     it("should maintain state after executing", ()  => {
             let expectedDirection = "S"
             let controller = new MarsRoverController();
 
             controller.execute("R");
-            let direction = controller.execute("R");
+            let pose = controller.execute("R");
 
-            expect(direction.getDirection()).toBe(expectedDirection);
+            expect(pose.getDirection()).toBe(expectedDirection);
         }
     );
 });
