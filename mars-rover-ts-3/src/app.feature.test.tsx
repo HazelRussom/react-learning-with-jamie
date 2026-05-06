@@ -57,40 +57,39 @@ describe("turning feature", () => {
   });
 });
 
+describe("moving feature", () => {
+  it.skip("moves and turns", async () => {
+    render(<App />);
 
-// it.skip("moves and turns", async () => {
-//   render(<App />);
+    const moveButton = screen.getByRole("button", { name: "Move" });
+    const turnRightButton = screen.getByRole("button", { name: "Right" });
+    const turnLeftButton = screen.getByRole("button", { name: "Left" });
 
-//   const moveButton = screen.getByRole("button", { name: "Move" });
-//   const turnRightButton = screen.getByRole("button", { name: "Right" });
-//   const turnLeftButton = screen.getByRole("button", { name: "Left" });
+    // Turn right       0,0
+    await userEvent.click(turnRightButton);
+    // Move forwards    1,0
+    await userEvent.click(moveButton);
+    // Turn right       1,0
+    await userEvent.click(turnRightButton);
+    // Move forwards    1,9
+    await userEvent.click(moveButton);
+    // Move forwards    1,8
+    await userEvent.click(moveButton);
+    // Turn left        1,8
+    await userEvent.click(turnLeftButton);
+    // Move forwards    2,8
+    await userEvent.click(moveButton);
 
-//   // Turn right       0,0
-//   await userEvent.click(turnRightButton);
-//   // Move forwards    1,0
-//   await userEvent.click(moveButton);
-//   // Turn right       1,0
-//   await userEvent.click(turnRightButton);
-//   // Move forwards    1,9
-//   await userEvent.click(moveButton);
-//   // Move forwards    1,8
-//   await userEvent.click(moveButton);
-//   // Turn left        1,8
-//   await userEvent.click(turnLeftButton);
-//   // Move forwards    2,8
-//   await userEvent.click(moveButton);
+    // 2,8 >
+    const executeButton = screen.getByRole("button", { name: "Execute" });
+    await userEvent.click(executeButton);
 
-//   // 2,8 >
-//   const executeButton = screen.getByRole("button", { name: "Execute" });
+    await waitFor(() => {
+      const squareAt2_8 = screen.getByLabelText("square at x2 y8");
 
-//   await userEvent.click(executeButton);
+      expect(squareAt2_8).toHaveTextContent(">");
+    });
 
-//   // Assert on the position.
-//   await waitFor(() => {
-//     const squareAt2_8 = screen.getByLabelText("square at x2 y8");
-
-//     expect(squareAt2_8).toHaveTextContent(">");
-//   });
-
-//   expect(screen.getByLabelText("Command:")).toHaveValue("");
-// });
+    expect(screen.getByLabelText("Command:")).toHaveValue("");
+  });
+});

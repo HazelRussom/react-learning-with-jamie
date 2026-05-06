@@ -3,7 +3,7 @@ import App from "./App.tsx";
 import { MarsRoverController } from "./MarsRoverController";
 import { vi } from "vitest";
 import Mock = jest.Mock;
-import {Compass} from "./Compass.ts";
+import { Compass } from "./Compass.ts";
 
 vi.mock("./MarsRoverController");
 
@@ -69,6 +69,22 @@ describe("App should", () => {
         }
     );
 
+    it.each([
+        [1, "M"],
+        [2, "MM"],
+        [5, "MMMMM"],
+    ])(
+        "Adds M to the command when we click Move",
+        async (clickCount, expectedCommand) => {
+            render(<App />);
+
+            clickMoveButton(clickCount);
+
+            assertCommandIs(expectedCommand);
+        }
+    );
+
+
     it("sends an empty execute command to the controller", () => {
         render(<App />);
 
@@ -118,6 +134,11 @@ function clickLeftButton(clickCount: number = 1) {
 
 function clickRightButton(clickCount: number = 1) {
     const button = screen.getByRole("button", { name: "Right" });
+    clickButton(button, clickCount);
+}
+
+function clickMoveButton(clickCount: number = 1) {
+    const button = screen.getByRole("button", { name: "Move" });
     clickButton(button, clickCount);
 }
 

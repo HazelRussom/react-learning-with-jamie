@@ -2,11 +2,11 @@ import { useState } from "react";
 import "./App.css";
 import { MarsRoverController } from "./MarsRoverController";
 import MarsGrid from "./MarsGrid";
-import {Compass} from "./Compass.ts";
+import { Compass } from "./Compass.ts";
 
 function App() {
   const [command, setCommand] = useState("");
-  const [compass, setCompass] = useState( new Compass("N"));
+  const [compass, setCompass] = useState(new Compass("N"));
   const [controller] = useState(new MarsRoverController());
 
   function turnLeft(): void {
@@ -15,6 +15,10 @@ function App() {
 
   function turnRight(): void {
     setCommand(command + "R");
+  }
+
+  function move(): void {
+    setCommand(command + "M");
   }
 
   function executeCommand(): void {
@@ -36,6 +40,9 @@ function App() {
       <div className="pb-2 space-x-2">
         <button className="btn flex-1" onClick={turnLeft}>
           Left
+        </button>
+        <button className="btn flex-1" onClick={move}>
+          Move
         </button>
         <button className="btn flex-1" onClick={turnRight}>
           Right
