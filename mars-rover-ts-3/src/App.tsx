@@ -23,7 +23,7 @@ function App() {
   }
 
   function executeCommand(): void {
-    setPose(controller.execute(command));
+    setPose(controller.execute(command, pose));
     setCommand("");
   }
 

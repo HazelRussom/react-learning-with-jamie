@@ -1,17 +1,14 @@
-import { Compass } from "./Compass.ts";
 import { Coordinate } from "./Coordinate.ts";
 import {Pose} from "./Pose.ts";
 
 // TODO: make Pose immutable - see MR2.
 export class MarsRoverController {
-    pose = new Pose(new Compass("N"));
-
-    execute(command: string): Pose {
+    execute(command: string, startingPose: Pose): Pose {
         for (const char of command) {
             if (char == "R") {
-                this.pose = this.pose.turnRight();
+                startingPose = startingPose.turnRight();
             } else if (char == "L") {
-                this.pose = this.pose.turnLeft();
+                startingPose = startingPose.turnLeft();
             } else if (char == "M") {
                 new Coordinate().move();
             } else {
@@ -19,6 +16,6 @@ export class MarsRoverController {
             }
         }
 
-        return this.pose;
+        return startingPose;
     }
 }

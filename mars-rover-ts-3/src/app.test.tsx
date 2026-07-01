@@ -94,10 +94,10 @@ describe("App should", () => {
 
         expect(executeFunction).toHaveBeenCalledTimes(1);
 
-        expect(executeFunction).toHaveBeenCalledWith("");
+        expect(executeFunction).toHaveBeenCalledWith("", expect.any(Pose));
     });
 
-    it("sends execute command of M to the controller", () => {
+    it("sends execute command of L to the controller", () => {
         render(<App />);
 
         clickLeftButton();
@@ -105,7 +105,7 @@ describe("App should", () => {
         clickExecuteButton();
 
         expect(executeFunction).toHaveBeenCalledTimes(1);
-        expect(executeFunction).toHaveBeenCalledWith("L");
+        expect(executeFunction).toHaveBeenCalledWith("L", expect.any(Pose));
     });
 
     it("should render grid with default starting coordinate", () => {
